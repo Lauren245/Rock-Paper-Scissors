@@ -50,6 +50,9 @@ do{
 //after the game is over
 alert(getGameStats())
 
+console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+
 
 
 //FUNCTIONS
@@ -112,7 +115,7 @@ function announceCompMove(compMove){
         return "The computer chose S (Scissors).";
     }
 
-    return "an error occured";
+    return "an error occured.";
 }
 
 /*this function determines the game outcome based on the rules of rock paper scissors. Returns an outcome message and 
@@ -147,7 +150,7 @@ function compareMoves(move, compMove){
         return `${move} can't beat ${compMove}. It's a tie!`;
     }
 
-    return "an error occured";
+    return "an error occured.";
 }
 
 //helper function that generates more descriptive messages describing the outcome of the player's and the computer's choice.
@@ -163,7 +166,7 @@ function getOutcomeMessage(move, compMove){
         return "Scissors cut paper.";
     }
 
-    return "an error occured"
+    return "an error occured.";
 }
 
 
