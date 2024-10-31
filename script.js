@@ -12,15 +12,20 @@
 //GENERAL VARIABLES
 const choices = ['R', 'P', 'S']
 let gamesPlayed = 0; //used to calculate win rate 
+let ties = 0;
 
 //PLAYER-SPECIFIC VARIABLES
 let wins = 0;
 let losses = 0;
-let ties = 0;
 
+
+//COMP-SPECIFIC VARIABLES
+let compWins = 0;
+let compLosses = 0;
 
 do{
-    console.log("Wins = " + wins + ". Losses = " + losses + ".Ties = " + ties + ".Games Played = " + gamesPlayed);
+    console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+    console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
 
     let move = getMoveNoCancel();
     console.log("the funtion getMoveNoCancel() has returned with a value of " + move);
@@ -39,8 +44,17 @@ do{
     //game is over. Ask user if they want to play again
 }while(confirm("Would you like to play again?"));
 
+//after the game is over
+alert(getGameStats())
+console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+
+
+//FUNCTIONS
+
 
 /*TODO: create a version that asks the user if they want to quit if the click cancel. */
+//Function that gets and validates user input. Returns validated input.
 function getMoveNoCancel(){
     console.log("entering the getMoveNoCancel() function.");
     let isValid = false;
@@ -116,12 +130,20 @@ function compareMoves(move, compMove){
     if((move === 'R' && compMove === 'S') || (move === 'P' && compMove === 'R') || (move === 'S' && compMove === 'P')){
         //increment wins
          wins++;
+
+         //increment compLosses
+         compLosses++;
+
          return outcomeMessage = `${getOutcomeMessage(move, compMove)} You win!`;
     }
     //losses
     else if((move === 'S' && compMove === 'R') || (move === 'R' && compMove === 'P') || (move === 'P' && compMove === 'S')){
         //increment losses
         losses++;
+
+        //increment comp wins
+        compWins++;
+
         return outcomeMessage = `${getOutcomeMessage(move, compMove)} You lose!`;
     }
     //ties
@@ -146,4 +168,26 @@ function getOutcomeMessage(move, compMove){
     else if((move === 'S' && compMove === 'P') || (move === 'P' && compMove === 'S')){
         return outcomeMessage = "Scissors cut paper.";
     }
+}
+
+
+/*function calculates win rates for both the player and the computer and returns these along with the total 
+    number of player wins, losses, and the number of ties*/
+function getGameStats(){
+
+    //this should never happen in this version of the game, but I want to add this to avoid the possibility of dividing by 0
+    if(gamesPlayed === 0){
+        return 0;
+    }
+    //proceed if the number of games player is not 0
+    let playerWinRate = ((wins/gamesPlayed) * 100).toFixed(2);
+    let compWinRate = ((compWins/gamesPlayed) * 100).toFixed(2);
+
+    return `Games Played: ${gamesPlayed} \n
+        Wins: ${wins}  \n
+        Losses: ${losses} \n
+        Ties: ${ties} \n
+        player win rate: ${playerWinRate}% \n
+        computer win rate: ${compWinRate}%.`;
+    
 }
