@@ -23,19 +23,22 @@ let losses = 0;
 let compWins = 0;
 let compLosses = 0;
 
+//GAME LOOP
 do{
     console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
     console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+    console.log("----------------------------------------------------------------------------------------------------------------------");
 
+    //get the player's move
     let move = getMoveNoCancel();
-    console.log("the funtion getMoveNoCancel() has returned with a value of " + move);
     
+    //get the computer's move
     let compMove = getCompMove();
-    console.log("the funtion getCompMove() has returned with a value of " + compMove);
     
+    //tell the player about the comp's move in a user-friendly manner.
     alert(announceCompMove(compMove));
-    console.log("Ensuring compMove value did not change: " + compMove);
     
+    //compare the moves and report the results
     alert(compareMoves(move, compMove));
 
     //increment the games played
@@ -46,8 +49,7 @@ do{
 
 //after the game is over
 alert(getGameStats())
-console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
-console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+
 
 
 //FUNCTIONS
@@ -56,13 +58,10 @@ console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". T
 /*TODO: create a version that asks the user if they want to quit if the click cancel. */
 //Function that gets and validates user input. Returns validated input.
 function getMoveNoCancel(){
-    console.log("entering the getMoveNoCancel() function.");
     let isValid = false;
     
     do{
         let move = prompt("Please make a move by typing 'R' 'P' 'S' :");
-
-        console.log("move = " + move);
 
         //check the validity of move 
         //to be valid, the move can't be null and must be included in the choices array.
@@ -70,10 +69,7 @@ function getMoveNoCancel(){
             //convert move to uppercase and remove any additional whitespace
             move = move.toUpperCase().trim();
 
-            console.log("testing to see if toUpper and trim worked. move = " + move);
-
             if(choices.includes(move)){
-                console.log(`The player's move: ${move} is in the choices array.`);
                 isValid = true;
                 return move;
             }  
@@ -157,7 +153,6 @@ function compareMoves(move, compMove){
 //helper function that generates more descriptive messages describing the outcome of the player's and the computer's choice.
 function getOutcomeMessage(move, compMove){
     let outcomeMessage;
-    console.log("INSIDE getOutcomeMessage FUNCTION!");
 
     if((move === 'R' && compMove === 'S') || (move === 'S' && compMove === 'R')){
         return outcomeMessage = "Rock crushes scissors.";
