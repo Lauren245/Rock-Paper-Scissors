@@ -152,17 +152,18 @@ function compareMoves(move, compMove){
 
 //helper function that generates more descriptive messages describing the outcome of the player's and the computer's choice.
 function getOutcomeMessage(move, compMove){
-    let outcomeMessage;
 
     if((move === 'R' && compMove === 'S') || (move === 'S' && compMove === 'R')){
-        return outcomeMessage = "Rock crushes scissors.";
+        return "Rock crushes scissors.";
     }
     else if((move === 'P' && compMove === 'R') || (move === 'R' && compMove === 'P')){
-        return outcomeMessage = "Paper covers rock.";
+        return "Paper covers rock.";
     }
     else if((move === 'S' && compMove === 'P') || (move === 'P' && compMove === 'S')){
-        return outcomeMessage = "Scissors cut paper.";
+        return "Scissors cut paper.";
     }
+
+    return "an error occured"
 }
 
 
