@@ -101,19 +101,18 @@ function getCompMove(){
 //function announces what computer chose in terms of "Rock" "Paper" or "Scissors".
 //this does not do anything to alter the computer's move.
 function announceCompMove(compMove){
-    let message;
     //check and translate compMove
     if(compMove === 'R'){
-        message = "The computer chose R (Rock).";
+        return "The computer chose R (Rock).";
     }
     else if(compMove === 'P'){
-        message = "The computer chose P (Paper).";
+        return "The computer chose P (Paper).";
     }
     else if(compMove === 'S'){
-        message = "The computer chose S (Scissors).";
+        return "The computer chose S (Scissors).";
     }
 
-    return message;
+    return "an error occured";
 }
 
 /*this function determines the game outcome based on the rules of rock paper scissors. Returns an outcome message and 
