@@ -119,7 +119,6 @@ function announceCompMove(compMove){
 increments wins, losses, or ties accordingly.*/
 
 function compareMoves(move, compMove){
-    let outcomeMessage;
     
     //wins
     if((move === 'R' && compMove === 'S') || (move === 'P' && compMove === 'R') || (move === 'S' && compMove === 'P')){
@@ -129,7 +128,7 @@ function compareMoves(move, compMove){
          //increment compLosses
          compLosses++;
 
-         return outcomeMessage = `${getOutcomeMessage(move, compMove)} You win!`;
+         return `${getOutcomeMessage(move, compMove)} You win!`;
     }
     //losses
     else if((move === 'S' && compMove === 'R') || (move === 'R' && compMove === 'P') || (move === 'P' && compMove === 'S')){
@@ -139,14 +138,16 @@ function compareMoves(move, compMove){
         //increment comp wins
         compWins++;
 
-        return outcomeMessage = `${getOutcomeMessage(move, compMove)} You lose!`;
+        return `${getOutcomeMessage(move, compMove)} You lose!`;
     }
     //ties
     else if(move === compMove){
         //increment ties
         ties++;
-        return outcomeMessage = `${move} can't beat ${compMove}. It's a tie!`;
+        return `${move} can't beat ${compMove}. It's a tie!`;
     }
+
+    return "an error occured";
 }
 
 //helper function that generates more descriptive messages describing the outcome of the player's and the computer's choice.
