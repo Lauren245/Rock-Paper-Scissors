@@ -1,13 +1,3 @@
-//!!! will add this back in later after writing the gameplay loop
-// const playGameBtn = document.getElementById('play-game-btn');
-
-// //add an event listener that check if the play button is clicked
-// playGameBtn.addEventListener('click', startGame())
-
-// function startGame(){
-//     //first call helper method to hide the play button
-
-// }
 
 //GENERAL VARIABLES
 const choices = ['R', 'P', 'S']
@@ -23,36 +13,65 @@ let losses = 0;
 let compWins = 0;
 let compLosses = 0;
 
+const playGameBtn = document.getElementById('play-game-btn');
+
+//add an event listener that check if the play button is clicked
+// playGameBtn.addEventListener('click', gameLoop)
+playGameBtn.addEventListener('click', function(){
+    //TODO:alter this so the HTML actually updates on the screen before starting the game loop.
+    playGameBtn.setAttribute('style', 'display:none;');
+    resetGameVariables();
+    gameLoop();
+})
+
+function resetGameVariables(){
+     //if a game has already been played, clear the varaibles.
+    if (gamesPlayed > 0){
+        gamesPlayed = 0;
+        ties = 0;
+        wins = 0;
+        losses = 0;
+        compWins = 0;
+        compLosses = 0;
+    }
+}
+
 //GAME LOOP
-do{
+function gameLoop(){
+    do{
+        console.log("----------------------------------------------------------------------------------------------------------------------");
+        console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+        console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
+
+    
+        //get the player's move
+        let move = getMoveNoCancel();
+        
+        //get the computer's move
+        let compMove = getCompMove();
+        
+        //tell the player about the comp's move in a user-friendly manner.
+        alert(announceCompMove(compMove));
+        
+        //compare the moves and report the results
+        alert(compareMoves(move, compMove));
+    
+        //increment the games played
+        gamesPlayed++;
+    
+        //game is over. Ask user if they want to play again
+    }while(confirm("Would you like to play again?"));
+    
+    //after the game is over
+    alert(getGameStats())
+
+    console.log("----------------------------------------------------------------------------------------------------------------------");
     console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
     console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
-    console.log("----------------------------------------------------------------------------------------------------------------------");
 
-    //get the player's move
-    let move = getMoveNoCancel();
-    
-    //get the computer's move
-    let compMove = getCompMove();
-    
-    //tell the player about the comp's move in a user-friendly manner.
-    alert(announceCompMove(compMove));
-    
-    //compare the moves and report the results
-    alert(compareMoves(move, compMove));
-
-    //increment the games played
-    gamesPlayed++;
-
-    //game is over. Ask user if they want to play again
-}while(confirm("Would you like to play again?"));
-
-//after the game is over
-alert(getGameStats())
-
-console.log("PLAYER STATS: Wins = " + wins + ". Losses = " + losses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
-console.log("COMP STATS: Wins = " + compWins + ". Losses = " + compLosses + ". Ties = " + ties + ". Games Played = " + gamesPlayed);
-
+    //change the styling of the play button so that it reappears.
+    playGameBtn.setAttribute('style', 'display:block;');
+}
 
 
 //FUNCTIONS
@@ -181,7 +200,8 @@ function getGameStats(){
     //proceed if the number of games player is not 0
     let playerWinRate = ((wins/gamesPlayed) * 100).toFixed(2);
     let compWinRate = ((compWins/gamesPlayed) * 100).toFixed(2);
-
+    
+    //return the result for the alert.
     return `Games Played: ${gamesPlayed} \n
         Wins: ${wins}  \n
         Losses: ${losses} \n
